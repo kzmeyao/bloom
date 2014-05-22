@@ -42,7 +42,7 @@ var Bloom = function(container, pathToJelly, frequency, carryingCapacity) {
       }
 
       jellyCt++;
-      if (jellyCt > carryingCapacity) {
+      if (carryingCapacity !== 0 && jellyCt > carryingCapacity) {
         clearInterval(intervalId);
         return;
       }
