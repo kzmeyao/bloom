@@ -1,0 +1,74 @@
+.jelly-container {
+  top: -10%;
+  position: fixed;
+  animation: pulse 3s ease 0s 5, move 15s 0s;
+  -webkit-animation: pulse 3s ease 0s 5, move 15s 0s;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+@-webkit-keyframes move {
+  0% {
+    top: 110%;
+  }
+  20% {
+    top: 80%;
+  }
+  40% {
+    top: 60%;
+  }
+  60% {
+    top: 40%;
+  }
+  80% {
+    top: 20%;
+  }
+  100% {
+    top: -10%;
+  }
+}
+
+@keyframes move {
+  0% {
+    top: 110%;
+  }
+  20% {
+    top: 80%;
+  }
+  40% {
+    top: 60%;
+  }
+  60% {
+    top: 40%;
+  }
+  80% {
+    top: 20%;
+  }
+  100% {
+    top: -10%;
+  }
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    opacity: .5;
+  }
+  66% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .5;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: .5;
+  }
+  66% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .5;
+  }
+}
