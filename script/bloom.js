@@ -1,4 +1,4 @@
-var Bloom = function(container, pathToJelly, frequency, carryingCapacity) {
+var Bloom = function(tank, pathToJelly, frequency, carryingCapacity) {
   // http://stackoverflow.com/questions/1060008/is-there-a-way-to-detect-if-a-browser-window-is-not-currently-active
   var hidden = "hidden";
   // Standards:
@@ -31,9 +31,12 @@ var Bloom = function(container, pathToJelly, frequency, carryingCapacity) {
       document.body.className = this[hidden] ? "hidden" : "visible";
   }
 
-  var tank = document.getElementById(container);
+  var tank = document.getElementById(tank);
   var jellyCt = 0;
   var w = tank.offsetWidth;
+  var y = tank.offsetHeight;
+  var dist = -y/4;
+  var startingPoint = y - dist + "px";
   var intervalId = Snap.load(pathToJelly, function (data) {
     setInterval(function () {
       if (document.hidden) {
@@ -57,31 +60,29 @@ var Bloom = function(container, pathToJelly, frequency, carryingCapacity) {
       document.getElementById(id).style.marginLeft = xOffset + "px";
       var body = jelly.select("g");
       var tentacles = body.select("g");
+      container.style.top = startingPoint;
+      container.style.webkitTransform = "translateY(0px)";
       var charge = function () {
-        tentacles.animate({transform: "t 0 0"}, 2000, mina.easein, function () {
+        var pixels = parseFloat(container.style.webkitTransform.split(/[()]/)[1]);
+        container.style.webkitTransform = "translateY(" + (dist + pixels) + "px)";
+        tentacles.animate({transform: "t 0 0"}, 1000, mina.easein, function () {
           push();
         });
       };
       var push = function() {
-        tentacles.animate({transform: "t 0 -2"}, 1000, mina.easein, function () {
+        tentacles.animate({transform: "t 0 -2"}, 2000, mina.easein, function () {
           charge();
         });
       }
-      charge();
+      push();
       var $jelly = document.getElementById(id);
       $jelly.addEventListener('webkitAnimationEnd', function () {
-        if (this.parentNode) {
-          this.style.webkitAnimationName = "";
-          tentacles.stop();
-          jelly.remove();
-        }
+        tentacles.stop();
+        jelly.remove();
       }, false);
       $jelly.addEventListener('animationend', function () {
-        if (this.parentNode) {
-          this.style.animationName = "";
-          tentacles.stop();
-          jelly.remove();
-        }
+        tentacles.stop();
+        jelly.remove();
       }, false);
     }, frequency);
   });
