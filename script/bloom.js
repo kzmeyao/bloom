@@ -36,17 +36,14 @@ var Bloom = function(container, pathToJelly, frequency, carryingCapacity) {
   var w = tank.offsetWidth;
   var intervalId = Snap.load(pathToJelly, function (data) {
     setInterval(function () {
-
       if (document.hidden) {
         return;
       }
-
       jellyCt++;
       if (carryingCapacity !== 0 && jellyCt > carryingCapacity) {
         clearInterval(intervalId);
         return;
       }
-
       var xOffset = Math.floor((Math.random() * w) + 1);
       var id = "svg" + jellyCt;
       var container = document.createElement("svg");
@@ -74,12 +71,14 @@ var Bloom = function(container, pathToJelly, frequency, carryingCapacity) {
       var $jelly = document.getElementById(id);
       $jelly.addEventListener('webkitAnimationEnd', function () {
         if (this.parentNode) {
+          this.style.webkitAnimationName = "";
           tentacles.stop();
           jelly.remove();
         }
       }, false);
       $jelly.addEventListener('animationend', function () {
         if (this.parentNode) {
+          this.style.animationName = "";
           tentacles.stop();
           jelly.remove();
         }
