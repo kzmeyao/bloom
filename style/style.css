@@ -41,6 +41,10 @@ section {
   font-size: .9em;
 }
 
+a {
+  color: #ffffff;
+}
+
 h1 {
   font-family: 'Linux Libertine', sans-serif;
   font-weight: 700;
