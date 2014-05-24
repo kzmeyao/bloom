@@ -1,7 +1,6 @@
 var Bloom = function(tank, pathToJelly, frequency, carryingCapacity) {
   // http://stackoverflow.com/questions/1060008/is-there-a-way-to-detect-if-a-browser-window-is-not-currently-active
   var hidden = "hidden";
-  // Standards:
   if (hidden in document)
     document.addEventListener("visibilitychange", onchange);
   else if ((hidden = "mozHidden") in document)
@@ -10,20 +9,16 @@ var Bloom = function(tank, pathToJelly, frequency, carryingCapacity) {
     document.addEventListener("webkitvisibilitychange", onchange);
   else if ((hidden = "msHidden") in document)
     document.addEventListener("msvisibilitychange", onchange);
-  // IE 9 and lower:
   else if ('onfocusin' in document)
     document.onfocusin = document.onfocusout = onchange;
-  // All others:
   else
     window.onpageshow = window.onpagehide
       = window.onfocus = window.onblur = onchange;
-
   function onchange (evt) {
     var v = 'visible', h = 'hidden',
       evtMap = {
         focus:v, focusin:v, pageshow:v, blur:h, focusout:h, pagehide:h
       };
-
     evt = evt || window.event;
     if (evt.type in evtMap)
       document.body.className = evtMap[evt.type];
@@ -49,41 +44,42 @@ var Bloom = function(tank, pathToJelly, frequency, carryingCapacity) {
       }
       var xOffset = Math.floor((Math.random() * w) + 1);
       var id = "svg" + jellyCt;
-      var container = document.createElement("svg");
-      container.id = id;
-      container.className = "jelly-container";
-      tank.appendChild(container);
-      var jelly = Snap("#" + id);
+      var jelly = document.createElement("svg");
+      jelly.id = id;
+      jelly.className = "jelly-container";
+      tank.appendChild(jelly);
+      var snap = Snap("#" + id);
       var svg = data.select("svg");
-      jelly.append(svg.clone());
-      jelly.select("svg").attr({height: "16px", width: "16px"});
-      document.getElementById(id).style.marginLeft = xOffset + "px";
-      var body = jelly.select("g");
+      snap.append(svg.clone());
+      snap.select("svg").attr({height: "16px", width: "16px"});
+      var $jelly = document.getElementById(id);
+      $jelly.style.marginLeft = xOffset + "px";
+      var body = snap.select("g");
       var tentacles = body.select("g");
-      container.style.top = startingPoint;
-      container.style.webkitTransform = "translateY(0px)";
+      jelly.style.top = startingPoint;
+      jelly.style.webkitTransform = "translateY(0px)";
+      jelly.style.transform = "translateY(0px)";
       var charge = function () {
-        var pixels = parseFloat(container.style.webkitTransform.split(/[()]/)[1]);
-        container.style.webkitTransform = "translateY(" + (dist + pixels) + "px)";
+        var pixels = parseFloat(jelly.style.webkitTransform.split(/[()]/)[1]);
+        var newDist = dist + pixels;
+        jelly.style.transform = "translateY(" + newDist + "px)";
+        jelly.style.webkitTransform = "translateY(" + newDist + "px)";
         tentacles.animate({transform: "t 0 0"}, 1000, mina.easein, function () {
           push();
         });
       };
       var push = function() {
-        tentacles.animate({transform: "t 0 -2"}, 2000, mina.easein, function () {
+        tentacles.animate({transform: "t 0 -3"}, 2000, mina.easein, function () {
           charge();
         });
-      }
+      };
       push();
-      var $jelly = document.getElementById(id);
-      $jelly.addEventListener('webkitAnimationEnd', function () {
+      var cleanUp = function() {
         tentacles.stop();
         jelly.remove();
-      }, false);
-      $jelly.addEventListener('animationend', function () {
-        tentacles.stop();
-        jelly.remove();
-      }, false);
+      };
+      $jelly.addEventListener('webkitAnimationEnd', cleanUp);
+      $jelly.addEventListener('animationend', cleanUp);
     }, frequency);
   });
 };

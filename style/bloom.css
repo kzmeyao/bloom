@@ -1,7 +1,7 @@
 .jelly-container {
   position: fixed;
-  animation: pulse 3s ease 0s 5;
   transition: 3s ease-out;
+  animation: pulse 3s ease 0s 6;
   transform: translateZ(0);
   -webkit-transition: 3s ease-out;
   -webkit-animation: pulse 3s ease 0s 6;
