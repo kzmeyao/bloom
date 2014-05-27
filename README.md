@@ -1,4 +1,16 @@
 bloom
 =====
 
-They're everywhere.
+Instant jellyfish anywhere. [DEMO](http://kzmeyao.github.io/bloom/)
+
+1. Load bloom.js, bloom.css, and jelly.svg on your page
+2. Start the show.
+
+   ```javascript
+   new Bloom("element-id", "/path/to/jelly.svg", frequencyInMs, numOfJellyfishes);
+   ```
+   
+Built using [Snap.svg](http://snapsvg.io/) and CSS3 animations, aka it will not work in some browsers.
+
+
+
