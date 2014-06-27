@@ -1,33 +1,7 @@
-.jelly-container {
+#jelly-hidden {
+  display: none;
+}
+
+.jelly {
   position: fixed;
-  transition: 3s ease-out;
-  animation: pulse 3s ease 0s 6;
-  transform: translateZ(0);
-  -webkit-transition: 3s ease-out;
-  -webkit-animation: pulse 3s ease 0s 6;
-  -webkit-transform: translateZ(0);
-}
-
-@-webkit-keyframes pulse {
-  0% {
-    opacity: .5;
-  }
-  66% {
-    opacity: 1;
-  }
-  100% {
-    opacity: .5;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    opacity: .5;
-  }
-  66% {
-    opacity: 1;
-  }
-  100% {
-    opacity: .5;
-  }
 }
