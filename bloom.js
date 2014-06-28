@@ -1,4 +1,4 @@
-var Bloom = function(tank, pathToJelly, frequency, carryingCapacity) {
+var Bloom = function(jellySvg, tank, color, frequency, carryingCapacity) {
   // http://stackoverflow.com/questions/1060008/is-there-a-way-to-detect-if-a-browser-window-is-not-currently-active
   var hidden = "hidden";
   if (hidden in document)
@@ -31,55 +31,53 @@ var Bloom = function(tank, pathToJelly, frequency, carryingCapacity) {
   var w = tank.offsetWidth;
   var y = tank.offsetHeight;
   var dist = -y/4;
-  var startingPoint = y - dist + "px";
-  var intervalId = Snap.load(pathToJelly, function (data) {
-    setInterval(function () {
-      if (document.hidden) {
-        return;
-      }
-      jellyCt++;
-      if (carryingCapacity !== 0 && jellyCt > carryingCapacity) {
-        clearInterval(intervalId);
-        return;
-      }
-      var xOffset = Math.floor((Math.random() * w) + 1);
-      var id = "svg" + jellyCt;
-      var jelly = document.createElement("svg");
-      jelly.id = id;
-      jelly.className = "jelly-container";
-      tank.appendChild(jelly);
-      var snap = Snap("#" + id);
-      var svg = data.select("svg");
-      snap.append(svg.clone());
-      snap.select("svg").attr({height: "16px", width: "16px"});
-      var $jelly = document.getElementById(id);
-      $jelly.style.marginLeft = xOffset + "px";
-      var body = snap.select("g");
-      var tentacles = body.select("g");
-      jelly.style.top = startingPoint;
-      jelly.style.webkitTransform = "translateY(0px)";
-      jelly.style.transform = "translateY(0px)";
-      var charge = function () {
-        var pixels = parseFloat(jelly.style.webkitTransform.split(/[()]/)[1]);
-        var newDist = dist + pixels;
-        jelly.style.transform = "translateY(" + newDist + "px)";
-        jelly.style.webkitTransform = "translateY(" + newDist + "px)";
-        tentacles.animate({transform: "t 0 0"}, 1000, mina.easein, function () {
-          push();
-        });
-      };
-      var push = function() {
-        tentacles.animate({transform: "t 0 -3"}, 2000, mina.easein, function () {
-          charge();
-        });
-      };
-      push();
-      var cleanUp = function() {
-        tentacles.stop();
-        jelly.remove();
-      };
-      $jelly.addEventListener('webkitAnimationEnd', cleanUp);
-      $jelly.addEventListener('animationend', cleanUp);
-    }, frequency);
-  });
+
+  var intervalId = setInterval(function () {
+    if (document.hidden) {
+      return;
+    }
+    jellyCt++;
+    if (carryingCapacity !== 0 && jellyCt > carryingCapacity) {
+      clearInterval(intervalId);
+      return;
+    }
+    var xOffset = Math.floor((Math.random() * w) + 1);
+    var jelly = document.getElementById(jellySvg).cloneNode(true);
+    jelly.id = "svg" + jellyCt;
+    jelly.className = "jelly-container";
+    jelly.style.marginLeft = xOffset + "px";
+    var tentacles = jelly.getElementsByClassName("tentacles")[0];
+    tank.appendChild(jelly);
+
+    var tx = new TimelineMax({onComplete: function(){jelly.remove()}});
+    // there's definitely a better way to do this
+    tx.to(jelly, 1, {fill: color}, 0)
+      .to(jelly, 1, {autoAlpha: 1}, 1)
+      .to(jelly, 1, {scale : 2}, 1)
+      .to(jelly, 3, {y : dist}, 1)
+      .to(jelly, 1.5, {autoAlpha : 0.5}, 1)
+      .to(jelly, 1.5, {autoAlpha : 1}, 2.5)
+      .to(tentacles, 0.5, {y : 0}, 1)
+      .to(tentacles, 2, {y : -3}, 2)
+      .to(jelly, 3, {y : dist*2})
+      .to(jelly, 1.5, {autoAlpha : 0.5}, 4)
+      .to(jelly, 1.5, {autoAlpha : 1}, 5.5)
+      .to(tentacles, 0.5, {y : 0}, 4)
+      .to(tentacles, 2, {y : -3}, 5)
+      .to(jelly, 3, {y : dist*3})
+      .to(jelly, 1.5, {autoAlpha : 0.5}, 7)
+      .to(jelly, 1.5, {autoAlpha : 1}, 8.5)
+      .to(tentacles, 0.5, {y : 0}, 7)
+      .to(tentacles, 2, {y : -3}, 8)
+      .to(jelly, 3, {y : dist*4})
+      .to(jelly, 1.5, {autoAlpha : 0.5}, 10)
+      .to(jelly, 1.5, {autoAlpha : 1}, 11.5)
+      .to(tentacles, 0.5, {y : 0}, 10)
+      .to(tentacles, 2, {y : -3}, 11)
+      .to(jelly, 3, {y : dist*5})
+      .to(jelly, 1.5, {autoAlpha : 0.5}, 13)
+      .to(jelly, 1.5, {autoAlpha : 1}, 14.5)
+      .to(tentacles, 0.5, {y : 0}, 13)
+      .to(tentacles, 2, {y : -3}, 14);
+  }, frequency);
 };
