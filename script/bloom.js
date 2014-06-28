@@ -1,4 +1,4 @@
-var Bloom = function(tank, pathToJelly, frequency, carryingCapacity) {
+var Bloom = function(jellySvg, tank, frequency, carryingCapacity) {
   // http://stackoverflow.com/questions/1060008/is-there-a-way-to-detect-if-a-browser-window-is-not-currently-active
   var hidden = "hidden";
   if (hidden in document)
@@ -42,7 +42,7 @@ var Bloom = function(tank, pathToJelly, frequency, carryingCapacity) {
       return;
     }
     var xOffset = Math.floor((Math.random() * w) + 1);
-    var jelly = document.getElementById("jelly-hidden").cloneNode(true);
+    var jelly = document.getElementById(jellySvg).cloneNode(true);
     jelly.id = "svg" + jellyCt;
     jelly.className = "jelly-container";
     jelly.style.marginLeft = xOffset + "px";
@@ -56,27 +56,27 @@ var Bloom = function(tank, pathToJelly, frequency, carryingCapacity) {
     tx.to(jelly, 3, {y : dist})
       .to(jelly, 1.5, {autoAlpha : 0.5}, 0)
       .to(jelly, 1.5, {autoAlpha : 1}, 1.5)
-      .to(tentacles, 1, {y : 0}, 0)
+      .to(tentacles, 0.5, {y : 0}, 0)
       .to(tentacles, 2, {y : -3}, 1)
       .to(jelly, 3, {y : dist*2})
       .to(jelly, 1.5, {autoAlpha : 0.5}, 3)
       .to(jelly, 1.5, {autoAlpha : 1}, 4.5)
-      .to(tentacles, 1, {y : 0}, 3)
+      .to(tentacles, 0.5, {y : 0}, 3)
       .to(tentacles, 2, {y : -3}, 4)
       .to(jelly, 3, {y : dist*3})
       .to(jelly, 1.5, {autoAlpha : 0.5}, 6)
       .to(jelly, 1.5, {autoAlpha : 1}, 7.5)
-      .to(tentacles, 1, {y : 0}, 6)
+      .to(tentacles, 0.5, {y : 0}, 6)
       .to(tentacles, 2, {y : -3}, 7)
       .to(jelly, 3, {y : dist*4})
       .to(jelly, 1.5, {autoAlpha : 0.5}, 9)
       .to(jelly, 1.5, {autoAlpha : 1}, 10.5)
-      .to(tentacles, 1, {y : 0}, 9)
+      .to(tentacles, 0.5, {y : 0}, 9)
       .to(tentacles, 2, {y : -3}, 10)
       .to(jelly, 3, {y : dist*5})
       .to(jelly, 1.5, {autoAlpha : 0.5}, 12)
       .to(jelly, 1.5, {autoAlpha : 1}, 13.5)
-      .to(tentacles, 1, {y : 0}, 12)
+      .to(tentacles, 0.5, {y : 0}, 12)
       .to(tentacles, 2, {y : -3}, 13);
   }, frequency);
 };
