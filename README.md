@@ -3,14 +3,15 @@ bloom
 
 Instant jellyfish anywhere. [DEMO](http://kzmeyao.github.io/bloom/)
 
-1. Load [snap.svg.js](http://snapsvg.io/), bloom.js, bloom.css, and jelly.svg onto your page
+1. Load [TweenMax](https://github.com/greensock/GreenSock-JS), bloom.js, and bloom.css onto your page
+2. Copy and paste jelly.svg into your page
 2. Start the show.
 
    ```javascript
-   new Bloom("element-id", "/path/to/jelly.svg", frequencyInMs, numOfJellyfishes);
+   new Bloom("svg-id", "container-id", "#ffffff", frequencyInMs, numOfJellyfishes);
    ```
    
-Built using [Snap.svg](http://snapsvg.io/) and CSS3 animations, aka it will not work in some browsers.
+Built using [TweenMax](https://github.com/greensock/GreenSock-JS), aka it will not work in some browsers.
 
 
 
