@@ -1,4 +1,4 @@
-var Bloom = function(jellySvg, tank, frequency, carryingCapacity) {
+var Bloom = function(jellySvg, tank, color, frequency, carryingCapacity) {
   // http://stackoverflow.com/questions/1060008/is-there-a-way-to-detect-if-a-browser-window-is-not-currently-active
   var hidden = "hidden";
   if (hidden in document)
@@ -49,34 +49,35 @@ var Bloom = function(jellySvg, tank, frequency, carryingCapacity) {
     var tentacles = jelly.getElementsByClassName("tentacles")[0];
     tank.appendChild(jelly);
 
-    TweenLite.to(jelly, 1, {scale : 2});
-    TweenLite.to(jelly, 1, {autoAlpha: 1});
     var tx = new TimelineMax({onComplete: function(){jelly.remove()}});
     // there's definitely a better way to do this
-    tx.to(jelly, 3, {y : dist})
-      .to(jelly, 1.5, {autoAlpha : 0.5}, 0)
-      .to(jelly, 1.5, {autoAlpha : 1}, 1.5)
-      .to(tentacles, 0.5, {y : 0}, 0)
-      .to(tentacles, 2, {y : -3}, 1)
+    tx.to(jelly, 1, {fill: color}, 0)
+      .to(jelly, 1, {autoAlpha: 1}, 1)
+      .to(jelly, 1, {scale : 2}, 1)
+      .to(jelly, 3, {y : dist}, 1)
+      .to(jelly, 1.5, {autoAlpha : 0.5}, 1)
+      .to(jelly, 1.5, {autoAlpha : 1}, 2.5)
+      .to(tentacles, 0.5, {y : 0}, 1)
+      .to(tentacles, 2, {y : -3}, 2)
       .to(jelly, 3, {y : dist*2})
-      .to(jelly, 1.5, {autoAlpha : 0.5}, 3)
-      .to(jelly, 1.5, {autoAlpha : 1}, 4.5)
-      .to(tentacles, 0.5, {y : 0}, 3)
-      .to(tentacles, 2, {y : -3}, 4)
+      .to(jelly, 1.5, {autoAlpha : 0.5}, 4)
+      .to(jelly, 1.5, {autoAlpha : 1}, 5.5)
+      .to(tentacles, 0.5, {y : 0}, 4)
+      .to(tentacles, 2, {y : -3}, 5)
       .to(jelly, 3, {y : dist*3})
-      .to(jelly, 1.5, {autoAlpha : 0.5}, 6)
-      .to(jelly, 1.5, {autoAlpha : 1}, 7.5)
-      .to(tentacles, 0.5, {y : 0}, 6)
-      .to(tentacles, 2, {y : -3}, 7)
+      .to(jelly, 1.5, {autoAlpha : 0.5}, 7)
+      .to(jelly, 1.5, {autoAlpha : 1}, 8.5)
+      .to(tentacles, 0.5, {y : 0}, 7)
+      .to(tentacles, 2, {y : -3}, 8)
       .to(jelly, 3, {y : dist*4})
-      .to(jelly, 1.5, {autoAlpha : 0.5}, 9)
-      .to(jelly, 1.5, {autoAlpha : 1}, 10.5)
-      .to(tentacles, 0.5, {y : 0}, 9)
-      .to(tentacles, 2, {y : -3}, 10)
+      .to(jelly, 1.5, {autoAlpha : 0.5}, 10)
+      .to(jelly, 1.5, {autoAlpha : 1}, 11.5)
+      .to(tentacles, 0.5, {y : 0}, 10)
+      .to(tentacles, 2, {y : -3}, 11)
       .to(jelly, 3, {y : dist*5})
-      .to(jelly, 1.5, {autoAlpha : 0.5}, 12)
-      .to(jelly, 1.5, {autoAlpha : 1}, 13.5)
-      .to(tentacles, 0.5, {y : 0}, 12)
-      .to(tentacles, 2, {y : -3}, 13);
+      .to(jelly, 1.5, {autoAlpha : 0.5}, 13)
+      .to(jelly, 1.5, {autoAlpha : 1}, 14.5)
+      .to(tentacles, 0.5, {y : 0}, 13)
+      .to(tentacles, 2, {y : -3}, 14);
   }, frequency);
 };
