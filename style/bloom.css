@@ -3,6 +3,6 @@
 }
 
 .jelly {
-  position: absolute;
+  position: fixed;
   overflow: hidden;
 }
