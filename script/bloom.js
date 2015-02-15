@@ -1,4 +1,4 @@
-var Bloom = function(jellySvg, tank, color, frequency, carryingCapacity) {
+var Bloom = function(jellySvg, tankId, color, frequency, carryingCapacity) {
   // http://stackoverflow.com/questions/1060008/is-there-a-way-to-detect-if-a-browser-window-is-not-currently-active
   var hidden = "hidden";
   if (hidden in document)
@@ -26,7 +26,7 @@ var Bloom = function(jellySvg, tank, color, frequency, carryingCapacity) {
       document.body.className = this[hidden] ? "hidden" : "visible";
   }
 
-  var tank = document.getElementById(tank);
+  var tank = document.getElementById(tankId);
   var jellyCt = 0;
   var w = tank.offsetWidth;
   var y = tank.offsetHeight;
@@ -44,7 +44,6 @@ var Bloom = function(jellySvg, tank, color, frequency, carryingCapacity) {
     var xOffset = Math.floor((Math.random() * w) + 1);
     var jelly = document.getElementById(jellySvg).cloneNode(true);
     jelly.id = "svg" + jellyCt;
-    jelly.className = "jelly-container";
     jelly.style.marginLeft = xOffset + "px";
     var tentacles = jelly.getElementsByClassName("tentacles")[0];
     tank.appendChild(jelly);
@@ -53,7 +52,6 @@ var Bloom = function(jellySvg, tank, color, frequency, carryingCapacity) {
     // there's definitely a better way to do this
     tx.to(jelly, 1, {fill: color}, 0)
       .to(jelly, 1, {autoAlpha: 1}, 1)
-      .to(jelly, 1, {scale : 2}, 1)
       .to(jelly, 3, {y : dist}, 1)
       .to(jelly, 1.5, {autoAlpha : 0.5}, 1)
       .to(jelly, 1.5, {autoAlpha : 1}, 2.5)

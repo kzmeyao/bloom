@@ -4,4 +4,5 @@
 
 .jelly {
   position: fixed;
+  overflow: hidden;
 }
