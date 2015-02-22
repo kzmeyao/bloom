@@ -1,7 +1,8 @@
 var Bloom = function(jellySvg, tankId, color, frequency, carryingCapacity) {
-  this.isVisible = true;
+  this.isHidden = false;
   this.jellySvg = jellySvg;
   this.tank = document.getElementById(tankId);
+  console.log(this.tank);
   this.color = color;
   this.frequency = frequency;
   this.carryingCapacity = carryingCapacity;
@@ -23,7 +24,7 @@ var Bloom = function(jellySvg, tankId, color, frequency, carryingCapacity) {
   }
   var that = this;
   function handleVisibilityChange() {
-    that.isVisible = document[hidden];
+    that.isHidden = document[hidden];
   }
   document.addEventListener(visibilityChange, handleVisibilityChange, false);
 };
@@ -35,7 +36,7 @@ Bloom.prototype = {
     var dist = -y/4;
     var that = this;
     this.intervalId = setInterval(function () {
-      if (!that.isVisible) {
+      if (that.isHidden) {
         return;
       }
       jellyCt++;
